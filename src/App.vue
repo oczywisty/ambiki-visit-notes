@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <sidebar />
     <router-view/>
   </div>
 </template>
 
+<script>
+import Sidebar from '@/components/sidebar/Sidebar.vue';
+import { ACTIONS } from './store/enums';
+
+export default {
+  components: { Sidebar },
+  mounted() {
+    this.$store.dispatch(ACTIONS.GET_NOTES);
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import './assets/scss/colors.scss';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  background: #fff;
+  margin: 0;
+  padding: 0 0 0 330px;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.button-blank {
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  color: $c-primary;
 }
 </style>
